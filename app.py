@@ -10,8 +10,9 @@ logging.basicConfig(level=logging.INFO)
 BAIDU_APP_KEY = os.environ.get("BAIDU_APP_KEY", "你的AppKey")
 BAIDU_APP_SECRET = os.environ.get("BAIDU_APP_SECRET", "你的AppSecret")
 REDIRECT_URI = os.environ.get("REDIRECT_URI", "https://你的域名.onrender.com/callback")
-MUSIC_FOLDER = "/我的音乐播放器"  # 你网盘里的音乐文件夹路径
-ALLOWED_EXT = {"mp3", "flac", "wav", "m4a", "aac"}
+MUSIC_FOLDER = os.environ.get("MUSIC_FOLDER", "/我的音乐")
+ALLOWED_EXT_STR = os.environ.get("ALLOWED_EXT", "mp3,flac,wav")
+ALLOWED_EXT = set(ALLOWED_EXT_STR.split(","))
 # ==========================================
 
 # 存储你个人的 token
