@@ -14,7 +14,20 @@ MUSIC_FOLDER = os.environ.get("MUSIC_FOLDER", "/我的音乐")
 ALLOWED_EXT_STR = os.environ.get("ALLOWED_EXT", "mp3,flac,wav,m4a,aac")
 ALLOWED_EXT = set(ALLOWED_EXT_STR.split(","))
 # ==============================================
-
+# ============ 【在这里新增首页路由】 ============
+@app.route('/')
+def home_page():
+    if not BAIDU_APP_KEY or not REDIRECT_URI:
+        return "服务配置缺失，请检查环境变量", 400
+    auth_link = (
+        f"https://openapi.baidu.com/oauth/2.0/authorize"
+        f"?response_type=code"
+        f"&client_id={BAIDU_APP_KEY}"
+        f"&redirect_uri={REDIRECT_URI}"
+        f"&scope=basic,netdisk"
+    )
+    return redirect(auth_link)
+# ==============================================
 # 存储你的个人 Token
 token_store = {
     "access_token": None,
